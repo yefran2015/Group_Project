@@ -516,7 +516,7 @@ public class UserInterface {
      * @throws ClassNotFoundException 
      */
     public static void main(String args[]) throws NumberFormatException, IOException, ClassNotFoundException {
-        
+        System.out.println();
          new UserInterface();
     }
     //End
