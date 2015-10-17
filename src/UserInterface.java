@@ -478,24 +478,6 @@ public class UserInterface {
     }
     
     /**
-     * This method initializes the theater with a name and seating capacity
-     * @throws IOException
-     */
-    private void intializeTheater() throws IOException {
-        String name = null;
-        int capacity = 0;
-        
-        System.out.print("\nName of theater:");
-        name = userInput.readLine();
-        
-        System.out.print("Capacity for theater:");
-        capacity = new Integer(userInput.readLine());
-        
-        System.out.println();
-        theater = Theater.getInstance(name,capacity);
-    }
-    
-    /**
      * This method checks if a file with the name theater.dat
      * exists and if it does, it will ask the user
      * if they would like to use the stored data.
@@ -520,7 +502,6 @@ public class UserInterface {
                case 'n': {
                    System.out.println("\nWarning! Previous data will be "
                                    + "erased if you do not load it.\n");
-                   intializeTheater();
                    break;
                }
            }
