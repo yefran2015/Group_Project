@@ -181,7 +181,7 @@ public class Theater implements Serializable {
           }
        }
         else{
-        	System.out.println("Unable to add show, client does not exist");
+        	System.out.println("Unable to add show, client does not exist\n");
         }
     }
     

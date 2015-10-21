@@ -40,7 +40,8 @@ public class UserInterface {
      * @throws IOException
      * @throws ClassNotFoundException 
      */
-    public UserInterface() throws NumberFormatException, IOException, ClassNotFoundException {
+    public UserInterface() throws NumberFormatException,IOException
+                                 ,ClassNotFoundException {
         
         int input = -1;
         
@@ -168,7 +169,7 @@ public class UserInterface {
 	private void retrieveData() throws FileNotFoundException,IOException
                                 ,ClassNotFoundException {
         
-    	if(THEATER_SAVE_FILE.exists()){
+    	if(THEATER_SAVE_FILE.exists()) {
 	        ObjectInputStream inFile;
 	        Object object;
 	        inFile = new ObjectInputStream(new FileInputStream(THEATER_SAVE_FILE));
@@ -179,11 +180,17 @@ public class UserInterface {
 	                break;
 	            }
 	        }
+	        
 	        theater.loadData();
+	        
 	        if(theater.getClientList()!=null && theater.getClientList().size()>0)
-	        	Client.setClientId(theater.getClientList().get(theater.getClientList().size()-1).getClientID()+1);
+	        	Client.setClientId(theater.getClientList().get(theater
+	        			.getClientList().size()-1).getClientID()+1);
+	        
 	        if(theater.getCustomerList()!=null && theater.getCustomerList().size()>0)
-	        	Customer.setCustomersId(theater.getCustomerList().get(theater.getCustomerList().size()-1).getCustomerID()+1);
+	        	Customer.setCustomersId(theater.getCustomerList().get(theater
+	        			.getCustomerList().size()-1).getCustomerID()+1);
+	        
 	        System.out.println("The data was loaded successfully.\n");
     	}else{
     		System.out.print("\nThere is no saved data.\n");
@@ -495,7 +502,8 @@ public class UserInterface {
                case 'y': {
                    retrieveData();
                    System.out.println("\nWelcome to "+theater.getTheaterName());
-                   System.out.println("Seating capacity "+theater.getSeatingCapacity()+"\n");
+                   System.out.println("Seating capacity "+theater
+                		             .getSeatingCapacity()+"\n");
                    break;
                }
                
@@ -515,7 +523,8 @@ public class UserInterface {
      * @throws IOException
      * @throws ClassNotFoundException 
      */
-    public static void main(String args[]) throws NumberFormatException, IOException, ClassNotFoundException {
+    public static void main(String args[]) throws NumberFormatException, 
+                                   IOException, ClassNotFoundException {
          new UserInterface();
     }
     //End
