@@ -154,28 +154,34 @@ public class Theater implements Serializable {
     public void addShow(Show show) {
         boolean validDates = true;
         
-        if(showList.search(show) != null){
-            System.out.println("This show already exists on that date.");
-        }
-        else {
-            Iterator<Show> iterator = showList.iterator();
-            while (iterator.hasNext() && validDates){
-                Show test = iterator.next();
-                if(show.getStartDate().compareTo(test.getStartDate()) > 0 && 
-                   show.getStartDate().compareTo(test.getEndDate()) < 0 ){
-                    validDates = false;
-                }
-                else if(show.getEndDate().compareTo(test.getStartDate()) > 0 && 
-                        show.getEndDate().compareTo(test.getEndDate()) < 0){
-                    validDates = false;
-                }
+        if(clientList.search(new Client(show.getClientID(),null,null,null)) != null) {
+        	if(showList.search(show) != null){
+        		System.out.println("This show already exists on that date.");
+        	}
+        	else {
+        		Iterator<Show> iterator = showList.iterator();
+        		while (iterator.hasNext() && validDates){
+        			Show test = iterator.next();
+        			if(show.getStartDate().compareTo(test.getStartDate()) > 0 && 
+        					show.getStartDate().compareTo(test.getEndDate()) < 0 ){
+        				validDates = false;
+        			}
+        			else if(show.getEndDate().compareTo(test.getStartDate()) > 0 && 
+        					show.getEndDate().compareTo(test.getEndDate()) < 0){
+        				validDates = false;
+        			}
+        		}
+        		if(validDates){
+        			showList.add(show);
+        		}
+        		else{
+        			System.out.println("This show could not be added. "
+        					+"The dates conflict with another show.");
             }
-            if(validDates){
-                showList.add(show);
-            }
-            else{
-                System.out.println("This show could not be added. The dates conflict with another show.");
-            }
+          }
+       }
+        else{
+        	System.out.println("Unable to add show, client does not exist");
         }
     }
     
