@@ -288,7 +288,7 @@ public class Theater implements Serializable {
      */
     public void removeShow(String showName) {
         
-        Show show = new Show(showName,0,null,null);
+        Show show = new Show(showName, 0, null, null, null);
         
         if(showList.search(show) != null) {
             this.showList.remove(show);
@@ -387,25 +387,17 @@ public class Theater implements Serializable {
      * This method attempts to pay the client
      *
      */
-    public void payClient(){
-        System.out.print("Client ID: ");
-        int clientID = new Integer(userInput.readLine());
-        Client client = theater.findClient(clientID);
-        double payment = -1;
+    public void payClient(Client client, double payment){
+        client.setBalance(client.getBalance() - payment);
+    }
 
-        if (client != null){
-            System.out.print("Current Ballance: $" + client.balance);
-            System.out.print("Amount to be paid to client: $");
-            payment = new Double(userInput.readLine());
-            while !(payment > 0 && payment < client.balance) {
-                System.out.print("Amount must be less than the total balance: $");
-                payment = new Double(userInput.readLine());
-            }
-            client.setBalance(client.balance - payment);
-        }
-        else {
-            System.out.println("This client does not exist in the system.");
-        }
+    /**
+     * This method prints a list of all tickets sold for a
+     * given date
+     * @param dateToPrint - the date for which to print tickets for
+     */
+    public void printAllTickets(GregorianCalendar dateToPrint) {
+
     }
 
     /**
@@ -451,7 +443,7 @@ public class Theater implements Serializable {
      * @return found show or null if show not found 
      */
     public Show findShow(String showName) {
-    	return this.showList.search(new Show(showName,0,null,null));
+    	return this.showList.search(new Show(showName, 0, null, null, null));
     }
     
     /**
