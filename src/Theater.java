@@ -288,7 +288,7 @@ public class Theater implements Serializable {
      */
     public void removeShow(String showName) {
         
-        Show show = new Show(showName, 0, null, null, null);
+        Show show = new Show(showName,0,null,null,0);
         
         if(showList.search(show) != null) {
             this.showList.remove(show);
@@ -430,7 +430,7 @@ public class Theater implements Serializable {
      * This method searches for a client with a given ID number and returns the object
      * 
      * @param clientId -- id of client whom to search
-     * @returna found client or null if client not found
+     * @return found client or null if client not found
      */
     public Client findClient(int clientId) {
     	return this.clientList.search(new Client(clientId,"","",""));
@@ -443,7 +443,7 @@ public class Theater implements Serializable {
      * @return found show or null if show not found 
      */
     public Show findShow(String showName) {
-    	return this.showList.search(new Show(showName, 0, null, null, null));
+    	return this.showList.search(new Show(showName,0,null,null,0));
     }
     
     /**
