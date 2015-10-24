@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.Double;
+import java.lang.Integer;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 
@@ -20,7 +22,7 @@ import java.util.Iterator;
  */
 public class UserInterface {
     
-    /*
+    /**
      * Declared variables
      */
     private BufferedReader userInput = new BufferedReader
@@ -52,7 +54,7 @@ public class UserInterface {
         //Loops a switch statement for user commands
         while(input != 0) {
             
-            System.out.print("Enter command or (13) for Help:");
+            System.out.print("Enter a command: ");
             input = new Integer(userInput.readLine());
             
             switch(input) {
@@ -83,18 +85,7 @@ public class UserInterface {
                 }
                 
                 case 6: {
-                    System.out.println();
-                    System.out.print("Enter the customer's id:");
-                    customer = theater.findCustomer(new 
-                                    Integer(userInput.readLine()));
-                    
-                    if(customer != null){
-                        customer.addCreditCard(addCreditCard());
-                    }
-                    else {
-                        System.out.println("\nThat customer is "
-                                        + "not in the database.\n");
-                    }
+                    addCreditCard();
                     break;
                 }
                 
@@ -127,8 +118,33 @@ public class UserInterface {
                     retrieveData();
                     break;
                 }
-                
+
                 case 13: {
+                    sellRegularTickets():
+                    break;
+                }
+
+                case 14: {
+                    sellAdvanceTickets():
+                    break;
+                }
+
+                case 15: {
+                    sellStudentAdvanceTickets():
+                    break;
+                }
+
+                case 16: {
+                    payClient():
+                    break;
+                }
+
+                case 17: {
+                    printAllTickets():
+                    break;
+                }
+                
+                case 18: {
                     help();
                     break;
                 } 
@@ -233,18 +249,19 @@ public class UserInterface {
         int year;
         int month;
         int date;
+        double regularTicketPrice;
         
         System.out.println();
-        System.out.print("Enter the client's id:");
+        System.out.print("Enter the client's id: ");
         clientID = new Integer(userInput.readLine());
         
-        System.out.print("Enter the name of the show:");
+        System.out.print("Enter the name of the show: ");
         showName = userInput.readLine();
         
         System.out.println("\nEnter the start date.");
-        System.out.print("Year:");
+        System.out.print("Year: ");
         year = new Integer(userInput.readLine());
-        System.out.print("month(numeric 1-12):");
+        System.out.print("Month(numeric 1-12): ");
         boolean done = false;
         startDate = null;
         
@@ -252,27 +269,27 @@ public class UserInterface {
         	try{
         		month = new Integer(userInput.readLine());
         		
-        		System.out.print("date:");
+        		System.out.print("Date: ");
                 date = new Integer(userInput.readLine());
                 
                 startDate = new GregorianCalendar(year,month,date);
                 done = true;
         	}catch(Exception ex){
-        		System.out.println("Month should be numeric");
+        		System.out.println("Month should be numeric...");
         	}
         }
         
         
         System.out.println("\nEnter the end date.");
-        System.out.print("Year:");
+        System.out.print("Year: ");
         year = new Integer(userInput.readLine());
         done=false;
         endDate = null;
         while(!done){
         	try{
-        		System.out.print("month(numeric 1-12):");
+        		System.out.print("Month(numeric 1-12): ");
         		month = new Integer(userInput.readLine());
-        		System.out.print("date:");
+        		System.out.print("Date: ");
         		date = new Integer(userInput.readLine());
         		System.out.println();
         
@@ -280,11 +297,20 @@ public class UserInterface {
         		done = true;
         		
         	}catch(Exception ex){
-        		System.out.println("Month should be numeric");
+        		System.out.println("Month should be numeric...");
         	}
         }
-        show = new Show(showName,clientID,startDate,endDate);
+
+
+        System.out.println("\nEnter the regular ticket price: $");
+        regularTicketPrice = new Double(userInput.readLine());
+
+
+        show = new Show(showName, clientID, startDate, endDate, regularTicketPrice);
         theater.addShow(show);
+
+
+
     }
 
     /**
@@ -293,6 +319,26 @@ public class UserInterface {
     private void listAllCustomers() {
         System.out.println();
         theater.listAllCustomers();
+    }
+
+    /**
+     * This method gets a customer ID, and if its a valid customer,
+     * the customer class is called to add a credit card to that customer.
+     *
+     */
+    private void addCreditCard(){
+        System.out.println();
+        System.out.print("Enter the customer's ID: ");
+        customer = theater.findCustomer(new
+                Integer(userInput.readLine()));
+
+        if(customer != null){
+            customer.addCreditCard(addCreditCard());
+        }
+        else {
+            System.out.println("\nThat customer is "
+                    + "not in the database.\n");
+        }
     }
 
     /**
@@ -483,7 +529,71 @@ public class UserInterface {
         client = new Client(Client.createClientID(),name,address,phoneNumber);
         theater.addClient(client);
     }
-    
+
+    private void sellRegularTickets() {
+
+
+    }
+
+    private void sellAdvanceTickets() {
+
+
+    }
+
+    private void sellStudentAdvanceTickets() {
+
+
+    }
+
+    /**
+     * This method attempts to pay the client
+     *
+     */
+    private void payClient() {
+        theater.payClient();
+    }
+
+    /**
+     * This method gets a valid date from the user and sends it
+     * to the Theater class to print all tickets for that
+     * specified date.
+     *
+     */
+    private void printAllTickets() {
+        private GregorianCalendar dateToPrint;
+        System.out.println("Enter a date to print tickets for.");
+        dateToPrint = getDate();
+        theater.printAllTickets(dateToPrint);
+    }
+
+    /**
+     * This method is a helper method for all other methods
+     * requiring the user to input a date.
+     *
+     * @return a valid formatted date
+     */
+    private GregorianCalendar getDate() {
+        boolean done = false;
+
+        System.out.print("Year: ");
+        year = new Integer(userInput.readLine());
+        System.out.print("Month(numeric 1-12): ");
+
+        while(!done){
+            try{
+                month = new Integer(userInput.readLine());
+                System.out.print("Date: ");
+                date = new Integer(userInput.readLine());
+
+                return GregorianCalendar(year,month,date);
+            }
+            catch(Exception ex){
+                System.out.println("Month should be numeric...");
+            }
+        }
+        return;
+    }
+
     /**
      * This method checks if a file with the name theater.dat
      * exists and if it does, it will ask the user

@@ -138,19 +138,7 @@ public class Theater implements Serializable {
     /**
      * This method adds a Show to the CollecitionList<Show>
      * @param show -- show to add
-     
-    public void addShow(Show show) {
-        
-        if(showList.search(show) != null){
-            System.out.println("This show already exists on that date.");
-        }
-        else {
-            showList.add(show);
-        }
-    }
-    
-    */
-       
+     */
     public void addShow(Show show) {
         boolean validDates = true;
         
@@ -186,11 +174,11 @@ public class Theater implements Serializable {
     }
     
     /**
-     * Removes a client that is associated with the given id
+     * Removes a client that is associated with the given ID
      * Removes all shows related to the client unless a show
      * is scheduled on the current date or a date in the future
      * 
-     * @param clientID -- id of client who will be remove
+     * @param clientID -- ID of client who will be remove
      */
     public void removeClient(int clientID) {
         Iterator<Show> iterator;
@@ -215,7 +203,7 @@ public class Theater implements Serializable {
                    if(show.getEndDate().get(Calendar.YEAR) > currentDate
                                             .get(Calendar.YEAR)) {
                        
-                       System.out.print("\nUnable to remove client,there exists"
+                       System.out.print("\nUnable to remove client; there exists"
                                        + " a scheduled show.\n\n");
                        futureShow = true;
                        break;
@@ -226,7 +214,7 @@ public class Theater implements Serializable {
                        if(show.getEndDate().get(Calendar.MONTH)>= 
                                    currentDate.get(Calendar.MONTH)) {
                            
-                           System.out.print("\nUnable to remove client,there "
+                           System.out.print("\nUnable to remove client; there "
                                            + "exists a scheduled show.\n\n");
                            
                            futureShow = true;
@@ -238,7 +226,7 @@ public class Theater implements Serializable {
                            if(show.getEndDate().get(Calendar.DATE) >= 
                                            currentDate.get(Calendar.DATE)) {
                                
-                           System.out.print("\nUnable to remove client,there "
+                           System.out.print("\nUnable to remove client; there "
                                            +"exists a scheduled show.\n\n");
                                
                            futureShow = true;
@@ -247,7 +235,7 @@ public class Theater implements Serializable {
                        else if(show.getEndDate().get(Calendar.DATE) == currentDate.get(Calendar.DATE)) {
  
                            if(show.getEndDate().get(Calendar.DATE) >= currentDate.get(Calendar.DATE)) {
-                               System.out.print("\nUnable to remove client,there exists a scheduled show.\n\n");
+                               System.out.print("\nUnable to remove client; there exists a scheduled show.\n\n");
                                futureShow = true;
                                break; 
                            }
@@ -270,7 +258,7 @@ public class Theater implements Serializable {
             }
         }
         else {
-            System.out.println("The client with that id is not in the database.");
+            System.out.println("The client with that ID is not in the database.");
         }
     }
     
@@ -311,7 +299,7 @@ public class Theater implements Serializable {
     }
     
     /**
-     *THis method  displays all of the clients stored in a CollectionList<Client>
+     *This method displays all of the clients stored in a CollectionList<Client>
      */
     public void listAllClients() {
         Iterator<Client> iterator = clientList.iterator();
@@ -321,7 +309,7 @@ public class Theater implements Serializable {
     }
     
     /**
-     * THis method  displays all of the clients stored in a CollectionList<Customer>
+     * This method displays all of the clients stored in a CollectionList<Customer>
      */
     public void listAllCustomers() {
         Iterator<Customer> iterator = customerList.iterator();
@@ -331,7 +319,7 @@ public class Theater implements Serializable {
     }
     
     /**
-     * THis method  displays all of the clients stored in a CollectionList<Show>
+     * This method displays all of the clients stored in a CollectionList<Show>
      */
     public void listAllShows() {
         Iterator<Show> iterator = showList.iterator();
@@ -341,7 +329,7 @@ public class Theater implements Serializable {
     }
     
     /**
-     *THis method  loads the serialized data from the file
+     *This method loads the serialized data from the file
      */
     @SuppressWarnings("unchecked")
 	public void loadData() {
@@ -379,7 +367,7 @@ public class Theater implements Serializable {
     }
    
     /**
-     * THis method  stores any object that has implemented Serializable into the file
+     * This method stores any object that has implemented Serializable into the file
      */
     public void storeData() {
         try {
@@ -394,9 +382,34 @@ public class Theater implements Serializable {
             System.out.println("IO Exception error: "+ error.getMessage()); 
         }
     }
-    
+
     /**
-     * THis method returns the name of the theater
+     * This method attempts to pay the client
+     *
+     */
+    public void payClient(){
+        System.out.print("Client ID: ");
+        int clientID = new Integer(userInput.readLine());
+        Client client = theater.findClient(clientID);
+        double payment = -1;
+
+        if (client != null){
+            System.out.print("Current Ballance: $" + client.balance);
+            System.out.print("Amount to be paid to client: $");
+            payment = new Double(userInput.readLine());
+            while !(payment > 0 && payment < client.balance) {
+                System.out.print("Amount must be less than the total balance: $");
+                payment = new Double(userInput.readLine());
+            }
+            client.setBalance(client.balance - payment);
+        }
+        else {
+            System.out.println("This client does not exist in the system.");
+        }
+    }
+
+    /**
+     * This method returns the name of the theater
      * @return name of the theater
      */
     public String getTheaterName() {
@@ -404,7 +417,7 @@ public class Theater implements Serializable {
     }
     
     /**
-     * THis method returns the seating capacity for the theater.
+     * This method returns the seating capacity for the theater.
      * @return seating capacity
      */
     public int getSeatingCapacity() {
@@ -412,9 +425,9 @@ public class Theater implements Serializable {
     }
     
     /**
-     * THis method  searches for a customer with a given id number and returns the object
+     * This method searches for a customer with a given ID number and returns the object
      * 
-     * @param customerId -- id of customer to search
+     * @param customerId -- ID of customer to search
      * @return found customer or null if customer not exists
      */
     public Customer findCustomer(int customerId) {
@@ -422,7 +435,7 @@ public class Theater implements Serializable {
     }
    
     /**
-     * THis method  searches for a client with a given id number and returns the object
+     * This method searches for a client with a given ID number and returns the object
      * 
      * @param clientId -- id of client whom to search
      * @returna found client or null if client not found
@@ -432,7 +445,7 @@ public class Theater implements Serializable {
     }
     
     /**
-     * THis method  searches for a show with a given name and returns the object
+     * This method searches for a show with a given name and returns the object
      * 
      * @param showName -- name of show to search
      * @return found show or null if show not found 
