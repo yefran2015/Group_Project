@@ -17,6 +17,7 @@ public class Show implements Comparable<Show>, Serializable {
     private String name;
     private int clientID;
     private Calendar[] dateRange;
+    private double regularTicketPrice;
     
     /**
      * Constructor with the following parameters
@@ -24,15 +25,17 @@ public class Show implements Comparable<Show>, Serializable {
      * @param clientID -- initial shows client ID
      * @param startDate -- initial start Date
      * @param endDate -- initial end Date
+     * @param regularTicketPrice -- initial ticket price
      */
     public Show(String showsName, int clientID, GregorianCalendar startDate
-               ,GregorianCalendar endDate) {
+               ,GregorianCalendar endDate, double regularTicketPrice) {
         
         this.name = showsName;
         this.clientID = clientID;
         dateRange = new GregorianCalendar[2];
         dateRange[0] = startDate;
-        dateRange[1] = endDate;  
+        dateRange[1] = endDate;
+        this.regularTicketPrice = regularTicketPrice;
     }
 
     /**
@@ -115,6 +118,6 @@ public class Show implements Comparable<Show>, Serializable {
                 get(Calendar.MONTH)+"/"+this.dateRange[0].get(Calendar.DATE)
                 +", Ends: "+this.dateRange[1].get(Calendar.YEAR)+"/"
                 +this.dateRange[1].get(Calendar.MONTH)+"/"+this.dateRange[1]
-                .get(Calendar.DATE)+"\n";
+                .get(Calendar.DATE)+"\nRegular ticket price: $"+regularTicketPrice+"\n";
     }
 }

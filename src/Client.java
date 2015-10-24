@@ -18,7 +18,7 @@ public class Client implements Comparable<Client>, Serializable {
     private int clientID;
     private String address;
     private String phone;
-    private Double balance;
+    private double balance;
     private static int nextClientId=2000;
     
     /**
