@@ -547,9 +547,11 @@ public class UserInterface {
 
     /**
      * This method attempts to pay the client
+     * @throws IOException 
+     * @throws NumberFormatException 
      *
      */
-    private void payClient() {
+    private void payClient() throws NumberFormatException, IOException {
         System.out.print("Client ID: ");
         int clientID = new Integer(userInput.readLine());
         Client client = theater.findClient(clientID);
@@ -574,9 +576,11 @@ public class UserInterface {
      * This method gets a valid date from the user and sends it
      * to the Theater class to print all tickets for that
      * specified date.
+     * @throws IOException 
+     * @throws NumberFormatException 
      *
      */
-    private void printAllTickets() {
+    private void printAllTickets() throws NumberFormatException, IOException {
         GregorianCalendar dateToPrint;
         System.out.println("Enter a date to print tickets for.");
         dateToPrint = getDate();
@@ -588,12 +592,14 @@ public class UserInterface {
      * requiring the user to input a date.
      *
      * @return a valid formatted date
+     * @throws IOException 
+     * @throws NumberFormatException 
      */
-    private GregorianCalendar getDate() {
+    private GregorianCalendar getDate() throws NumberFormatException, IOException {
         boolean done = false;
         int year;
-        int month;
-        int date;
+        int month = 0;
+        int date = 0;
 
         System.out.print("Year: ");
         year = new Integer(userInput.readLine());
@@ -611,6 +617,7 @@ public class UserInterface {
                 System.out.println("Month should be numeric...");
             }
         }
+        return null;
     }
 
     /**
