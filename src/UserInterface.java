@@ -120,27 +120,27 @@ public class UserInterface {
                 }
 
                 case 13: {
-                    sellRegularTickets():
+                    sellRegularTickets();
                     break;
                 }
 
                 case 14: {
-                    sellAdvanceTickets():
+                    sellAdvanceTickets();
                     break;
                 }
 
                 case 15: {
-                    sellStudentAdvanceTickets():
+                    sellStudentAdvanceTickets();
                     break;
                 }
 
                 case 16: {
-                    payClient():
+                    payClient();
                     break;
                 }
 
                 case 17: {
-                    printAllTickets():
+                    printAllTickets();
                     break;
                 }
                 
@@ -526,7 +526,7 @@ public class UserInterface {
         
         System.out.println();
         
-        client = new Client(Client.createClientID(),name,address,phoneNumber);
+        Client client = new Client(Client.createClientID(),name,address,phoneNumber);
         theater.addClient(client);
     }
 
@@ -550,7 +550,24 @@ public class UserInterface {
      *
      */
     private void payClient() {
-        theater.payClient();
+        System.out.print("Client ID: ");
+        int clientID = new Integer(userInput.readLine());
+        Client client = theater.findClient(clientID);
+        double payment = -1;
+
+        if (client != null){
+            System.out.print("Current Ballance: $" + client.getBalance());
+            System.out.print("Amount to be paid to client: $");
+            payment = new Double(userInput.readLine());
+            while (!(payment > 0 && payment < client.getBalance())) {
+                System.out.print("Amount must be less than the total balance: $");
+                payment = new Double(userInput.readLine());
+            }
+            theater.payClient(client, payment);
+        }
+        else {
+            System.out.println("This client does not exist in the system.");
+        }
     }
 
     /**
@@ -560,7 +577,7 @@ public class UserInterface {
      *
      */
     private void printAllTickets() {
-        private GregorianCalendar dateToPrint;
+        GregorianCalendar dateToPrint;
         System.out.println("Enter a date to print tickets for.");
         dateToPrint = getDate();
         theater.printAllTickets(dateToPrint);
@@ -574,6 +591,9 @@ public class UserInterface {
      */
     private GregorianCalendar getDate() {
         boolean done = false;
+        int year;
+        int month;
+        int date;
 
         System.out.print("Year: ");
         year = new Integer(userInput.readLine());
@@ -585,13 +605,12 @@ public class UserInterface {
                 System.out.print("Date: ");
                 date = new Integer(userInput.readLine());
 
-                return GregorianCalendar(year,month,date);
+                return new GregorianCalendar(year,month,date);
             }
             catch(Exception ex){
                 System.out.println("Month should be numeric...");
             }
         }
-        return;
     }
 
     /**

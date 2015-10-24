@@ -78,7 +78,7 @@ public class Client implements Comparable<Client>, Serializable {
     public void setBalance(Double balance) {
         this.balance = balance;
     }
-    
+
     /**
      * Returns the auto-generated id
      * @return -- unique id for this client
@@ -133,7 +133,7 @@ public class Client implements Comparable<Client>, Serializable {
      * Returns the client's balance
      * @return -- balance client has
      */
-    public Double getBalance() {
+    public double getBalance() {
         return balance;
     }
     
